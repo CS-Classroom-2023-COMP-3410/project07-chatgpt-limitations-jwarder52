@@ -151,4 +151,16 @@ body {
   #restartBtn:hover {
     background-color: #B88836;
   }
+
+  .player-info {
+    text-align: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #6C8F3F; /* Slightly darker green */
+    border-radius: 8px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
   

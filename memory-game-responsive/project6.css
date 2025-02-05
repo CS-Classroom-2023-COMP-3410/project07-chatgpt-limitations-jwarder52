@@ -69,59 +69,148 @@
 
 /* 🍉 Fruit Border Container */
 .fruit-border {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none; /* Ensures game elements remain interactive */
-    z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none; /* Ensures game elements remain interactive */
+  z-index: 999;
+  overflow: hidden; /* Prevent overflow */
 }
 
 /* 🍎 Individual Fruit Border Items */
 .fruit-item {
-    font-size: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  font-size: 20px; /* Reduced font size for smaller screens */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* 🎮 Centered Game Container */
+/* 🎮 Centered Game Container - Responsive with Media Queries */
 .game-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: min(90vw, 600px); /* Responsive width */
-    background: #fff;
-    border: 5px solid #333;
-    border-radius: 10px;
-    padding: 20px;
-    z-index: 1000;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(90vw, 600px);
+  background: #fff;
+  border: 5px solid #333;
+  border-radius: 10px;
+  padding: 15px;
+  z-index: 1000;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  max-height: 90vh; /* Ensure game always fits */
+  overflow: auto; /* Allow scrolling if content overflows */
 }
 
-/* 🃏 Game Grid */
+/* 🏆 Title & Info Section - Adjusting Font Size */
+h1 {
+  font-size: clamp(18px, 4vw, 28px); /* Adjusted for better readability */
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: clamp(14px, 2.5vw, 20px); /* Adjusted for better readability */
+  margin-bottom: 10px;
+}
+
+/* 🃏 Game Grid - Fully Responsive */
 .grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    margin-bottom: 20px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* 🃏 Responsive Cards */
+.card {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  font-size: clamp(12px, 4vw, 36px); /* Adjusted for better readability */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #6fa3ef;
+  border-radius: 5px;
 }
 
 /* 🔘 Buttons */
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 20px; /* Add margin to separate buttons from grid */
+}
+
 button {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background: #6fa3ef;
-    color: white;
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background: #6fa3ef;
+  color: white;
+  font-size: clamp(12px, 2.5vw, 18px); /* Adjusted for better readability */
+  width: 45%;
+  max-width: 150px;
 }
 
 button:hover {
-    background: #5c8fd6;
+  background: #5c8fd6;
 }
+
+/* 🍉 Adjust Maximum Height Based on Screen Size */
+@media (max-width: 768px) {
+  .game-container {
+      width: 95vw; /* Take up more space on smaller screens */
+      max-height: 95vh; /* Allow more height */
+  }
+
+  .fruit-item {
+      font-size: 16px; /* Smaller fruit icons for smaller screens */
+  }
+
+  .grid {
+      gap: 8px; /* Reduce gap for smaller screens */
+  }
+
+  button {
+      font-size: 14px; /* Slightly larger buttons for better touch targets */
+  }
+}
+
+@media (max-width: 480px) {
+  .game-container {
+      width: 100vw; /* Full width on very small screens */
+      height: 100vh; /* Full height on very small screens */
+      border-radius: 0; /* Remove border radius for full-screen mode */
+      padding: 10px; /* Reduce padding */
+  }
+
+  .fruit-item {
+      font-size: 14px; /* Even smaller fruit icons for very small screens */
+  }
+
+  .grid {
+      gap: 5px; /* Further reduce gap for very small screens */
+  }
+
+  button {
+      font-size: 12px; /* Smaller buttons for very small screens */
+  }
+}
+
+
 /* 🎭 Assign Animations */
 .pivot-dance { animation: pivotDance 0.6s infinite; }
 .bounce-dance { animation: bounceDance 0.6s infinite; }

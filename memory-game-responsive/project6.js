@@ -191,22 +191,25 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function generateFruitBorder() {
-      fruitBorderContainer.innerHTML = "";
-      screenWidth = window.innerWidth;
-      screenHeight = window.innerHeight;
+    fruitBorderContainer.innerHTML = "";
+    screenWidth = window.innerWidth;
+    screenHeight = window.innerHeight;
 
-      const borderPadding = fruitSize * 1.5; // Ensure space around game area
+    const borderPadding = fruitSize * 1.5;
 
-      for (let x = borderPadding; x < screenWidth - borderPadding; x += fruitSize) {
-          createFruit(x, borderPadding - fruitSize); // Top row
-          createFruit(x, screenHeight - borderPadding); // Bottom row
-      }
+    // Adjust fruit size and spacing based on screen size
+    const adjustedFruitSize = Math.min(fruitSize, screenWidth / 20, screenHeight / 20);
 
-      for (let y = borderPadding; y < screenHeight - borderPadding; y += fruitSize) {
-          createFruit(borderPadding - fruitSize, y); // Left column
-          createFruit(screenWidth - borderPadding, y); // Right column
-      }
-  }
+    for (let x = borderPadding; x < screenWidth - borderPadding; x += adjustedFruitSize) {
+        createFruit(x, borderPadding - adjustedFruitSize);
+        createFruit(x, screenHeight - borderPadding);
+    }
+
+    for (let y = borderPadding; y < screenHeight - borderPadding; y += adjustedFruitSize) {
+        createFruit(borderPadding - adjustedFruitSize, y);
+        createFruit(screenWidth - borderPadding, y);
+    }
+}
 
   generateFruitBorder();
   window.addEventListener("resize", generateFruitBorder);
@@ -215,10 +218,23 @@ document.addEventListener("DOMContentLoaded", () => {
   const gameGrid = document.querySelector(".grid");
   const startButton = document.getElementById("start-button");
 
+  function adjustGameSize() {
+      const maxWidth = screenWidth - fruitSize * 4;
+      const maxHeight = screenHeight - fruitSize * 4;
+
+      gameContainer.style.width = `${Math.min(500, maxWidth)}px`;
+      gameContainer.style.height = `${Math.min(600, maxHeight)}px`;
+
+      const cardSize = Math.min((maxWidth - 20) / 4, (maxHeight - 100) / 4);
+      document.documentElement.style.setProperty("--card-size", `${cardSize}px`);
+  }
+
   startButton.addEventListener("click", () => {
-      gameContainer.style.width = "min(80vw, 600px)"; /* Expand Game */
-      gameContainer.style.top = "calc(50% + 20px)"; /* Move Down */
-      gameGrid.style.display = "grid"; /* Show Grid */
-      generateFruitBorder(); /* Adjust Border */
+      gameGrid.style.display = "grid";
+      adjustGameSize();
+      generateFruitBorder();
   });
+
+  window.addEventListener("resize", adjustGameSize);
 });
+
